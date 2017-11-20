@@ -1,0 +1,23 @@
+package ${BASE_PACKAGE}.mapper;
+
+import java.util.List;
+import ${BASE_PACKAGE}.dto.request.${clazz.name}Request;
+import ${BASE_PACKAGE}.dto.response.${clazz.name}Response;
+import ${BASE_PACKAGE}.clazz.${clazz.name};
+import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.factory.Mappers;
+
+@Mapper(componentModel = "spring")
+public interface ${clazz.name}Mapper {
+
+    ${clazz.name}Mapper INSTANCE = Mappers.getMapper(${clazz.name}Mapper.class);
+
+    ${clazz.name} mapRequestToEntity(${clazz.name}Request ${fn.decapitalize(${clazz.name})}Request);
+
+    ${clazz.name}Response mapEntityToResponse(${clazz.name} ${fn.decapitalize(${clazz.name})});
+
+    List<${clazz.name}Response> mapEntityToResponse(List<${clazz.name}> ${fn.dcp(${clazz.name})});
+
+    void updateEntityFromRequest(${clazz.name}Request ${fn.decapitalize(${clazz.name})}Request, @MappingTarget ${clazz.name} ${fn.decapitalize(${clazz.name})});
+}

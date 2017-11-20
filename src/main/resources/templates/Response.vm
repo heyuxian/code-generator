@@ -1,0 +1,12 @@
+package ${BASE_PACKAGE}.dto.response;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class ${clazz.name}Response {
+#foreach( $field in ${clazz.fields} )
+    private ${field.type} ${field.name};
+#end
+}

@@ -1,0 +1,38 @@
+buildscript {
+    repositories {
+        maven{
+            url 'http://maven.aliyun.com/nexus/content/groups/public/'
+        }
+        mavenCentral()
+    }
+}
+
+plugins {
+    id "org.jetbrains.intellij" version "0.1.10"
+}
+
+apply plugin: 'idea'
+apply plugin: 'org.jetbrains.intellij'
+apply plugin: 'java'
+
+repositories {
+    maven{
+        url 'http://maven.aliyun.com/nexus/content/groups/public/'
+    }
+    mavenCentral()
+}
+dependencies {
+    compile 'org.projectlombok:lombok:1.16.18'
+    compile group: 'commons-io', name: 'commons-io', version: '2.5'
+}
+intellij {
+    version 'IC-2016.3'
+    pluginName 'Code Generator'
+    intellij.updateSinceUntilBuild false
+    publish {
+        apply from: "gradle.properties"
+    }
+}
+
+group 'me.javaroad'
+version '1.0.0.RELEASE'

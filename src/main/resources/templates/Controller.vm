@@ -1,0 +1,67 @@
+package ${BASE_PACKAGE}.controller.api;
+
+import static ${BASE_PACKAGE}.controller.ApiConstants.API_PREFIX;
+
+import io.swagger.annotations.ApiOperation;
+import java.util.List;
+import javax.validation.Valid;
+import ${BASE_PACKAGE}.dto.request.${clazz.name}Request;
+import ${BASE_PACKAGE}.dto.response.${clazz.name}Response;
+import ${BASE_PACKAGE}.service.${clazz.name}Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping(API_PREFIX + "/${fn.dcp(${clazz.name})}")
+public class ${clazz.name}Controller {
+
+    private final ${clazz.name}Service ${fn.decapitalize(${clazz.name})}Service;
+
+    @Autowired
+    public ${clazz.name}Controller(${clazz.name}Service ${fn.decapitalize(${clazz.name})}Service) {
+        this.${fn.decapitalize(${clazz.name})}Service = ${fn.decapitalize(${clazz.name})}Service;
+    }
+
+    @ApiOperation(value = "Get all ${fn.dcp(${clazz.name})}", httpMethod = "GET")
+    @GetMapping
+    public List<${clazz.name}Response> get${fn.pluralize(${clazz.name})}() {
+        return ${fn.decapitalize(${clazz.name})}Service.getAll();
+    }
+
+    @ApiOperation(value = "Get ${fn.decapitalize(${clazz.name})} by Id", httpMethod = "GET")
+    @GetMapping("{${fn.decapitalize(${clazz.name})}Id}")
+    public ${clazz.name}Response get${clazz.name}(@PathVariable Long ${fn.decapitalize(${clazz.name})}Id) {
+        return ${fn.decapitalize(${clazz.name})}Service.getResponse(${fn.decapitalize(${clazz.name})}Id);
+    }
+
+    @ApiOperation(value = "Create ${fn.decapitalize(${clazz.name})}", httpMethod = "POST")
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public ${clazz.name}Response create${clazz.name}(@RequestBody @Valid ${clazz.name}Request ${fn.decapitalize(${clazz.name})}Request) {
+        return ${fn.decapitalize(${clazz.name})}Service.create(${fn.decapitalize(${clazz.name})}Request);
+    }
+
+    @ApiOperation(value = "Modify ${fn.decapitalize(${clazz.name})}", httpMethod = "PUT")
+    @PutMapping("{${fn.decapitalize(${clazz.name})}Id}")
+    public ${clazz.name}Response modify${clazz.name}(@PathVariable Long ${fn.decapitalize(${clazz.name})}Id,
+        @RequestBody @Valid ${clazz.name}Request ${fn.decapitalize(${clazz.name})}Request) {
+        return ${fn.decapitalize(${clazz.name})}Service.modify(${fn.decapitalize(${clazz.name})}Id, ${fn.decapitalize(${clazz.name})}Request);
+    }
+
+    @ApiOperation(value = "Delete ${fn.decapitalize(${clazz.name})}", httpMethod = "DELETE")
+    @DeleteMapping("{${fn.decapitalize(${clazz.name})}Id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete${clazz.name}(@PathVariable Long ${fn.decapitalize(${clazz.name})}Id) {
+        ${fn.decapitalize(${clazz.name})}Service.delete(${fn.decapitalize(${clazz.name})}Id);
+    }
+
+}

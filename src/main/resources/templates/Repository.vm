@@ -1,0 +1,10 @@
+package ${BASE_PACKAGE}.repository;
+
+import ${BASE_PACKAGE}.clazz.${clazz.name};
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface ${clazz.name}Repository extends JpaRepository<${clazz.name}, Long> {
+
+}

@@ -1,0 +1,70 @@
+package ${BASE_PACKAGE}.service;
+
+import java.util.List;
+import java.util.Objects;
+import ${BASE_PACKAGE}.dto.request.${clazz.name}Request;
+import ${BASE_PACKAGE}.dto.response.${clazz.name}Response;
+import ${BASE_PACKAGE}.clazz.${clazz.name};
+import ${BASE_PACKAGE}.mapper.${clazz.name}Mapper;
+import ${BASE_PACKAGE}.repository.${clazz.name}Repository;
+import me.javaroad.common.exception.DataNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+@Transactional(readOnly = true)
+public class ${clazz.name}Service {
+
+    private final ${clazz.name}Repository ${fn.decapitalize(${clazz.name})}Repository;
+    private final ${clazz.name}Mapper ${fn.decapitalize(${clazz.name})}Mapper;
+
+    @Autowired
+    public ${clazz.name}Service(${clazz.name}Repository ${fn.decapitalize(${clazz.name})}Repository, ${clazz.name}Mapper ${fn.decapitalize(${clazz.name})}Mapper) {
+        this.${fn.decapitalize(${clazz.name})}Repository = ${fn.decapitalize(${clazz.name})}Repository;
+        this.${fn.decapitalize(${clazz.name})}Mapper = ${fn.decapitalize(${clazz.name})}Mapper;
+    }
+
+    public List<${clazz.name}Response> getAll() {
+        List<${clazz.name}> categories = ${fn.decapitalize(${clazz.name})}Repository.findAll();
+        return ${fn.decapitalize(${clazz.name})}Mapper.mapEntityToResponse(categories);
+    }
+
+    public ${clazz.name}Response getResponse(Long ${fn.decapitalize(${clazz.name})}Id) {
+        return ${fn.decapitalize(${clazz.name})}Mapper.mapEntityToResponse(getEntity(${fn.decapitalize(${clazz.name})}Id));
+    }
+
+    @Transactional
+    public ${clazz.name}Response create(${clazz.name}Request ${fn.decapitalize(${clazz.name})}Request) {
+        ${clazz.name} ${fn.decapitalize(${clazz.name})} = ${fn.decapitalize(${clazz.name})}Mapper.mapRequestToEntity(${fn.decapitalize(${clazz.name})}Request);
+        ${fn.decapitalize(${clazz.name})} = ${fn.decapitalize(${clazz.name})}Repository.save(${fn.decapitalize(${clazz.name})});
+        return ${fn.decapitalize(${clazz.name})}Mapper.mapEntityToResponse(${fn.decapitalize(${clazz.name})});
+    }
+
+    @Transactional
+    public ${clazz.name}Response modify(Long ${fn.decapitalize(${clazz.name})}Id, ${clazz.name}Request ${fn.decapitalize(${clazz.name})}Request) {
+        ${clazz.name} ${fn.decapitalize(${clazz.name})} = getNotNullEntity(${fn.decapitalize(${clazz.name})}Id);
+        ${fn.decapitalize(${clazz.name})}Mapper.updateEntityFromRequest(${fn.decapitalize(${clazz.name})}Request, ${fn.decapitalize(${clazz.name})});
+        ${fn.decapitalize(${clazz.name})} = ${fn.decapitalize(${clazz.name})}Repository.save(${fn.decapitalize(${clazz.name})});
+        return ${fn.decapitalize(${clazz.name})}Mapper.mapEntityToResponse(${fn.decapitalize(${clazz.name})});
+    }
+
+    @Transactional
+    public void delete(Long ${fn.decapitalize(${clazz.name})}Id) {
+        ${clazz.name} ${fn.decapitalize(${clazz.name})} = getNotNullEntity(${fn.decapitalize(${clazz.name})}Id);
+        ${fn.decapitalize(${clazz.name})}Repository.delete(${fn.decapitalize(${clazz.name})});
+    }
+
+    private ${clazz.name} getEntity(Long ${fn.decapitalize(${clazz.name})}Id) {
+        return ${fn.decapitalize(${clazz.name})}Repository.findOne(${fn.decapitalize(${clazz.name})}Id);
+    }
+
+    private ${clazz.name} getNotNullEntity(Long ${fn.decapitalize(${clazz.name})}Id) {
+        ${clazz.name} ${fn.decapitalize(${clazz.name})} = getEntity(${fn.decapitalize(${clazz.name})}Id);
+        if (Objects.isNull(${fn.decapitalize(${clazz.name})})) {
+            throw new DataNotFoundException("${fn.decapitalize(${clazz.name})}[id=%s] not found", ${fn.decapitalize(${clazz.name})}Id);
+        }
+        return ${fn.decapitalize(${clazz.name})};
+    }
+
+}

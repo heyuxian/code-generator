@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div style="font-family: Consolas;">
+  You can use the following predefined variables in templates
+  <ul style="list-style-type:none;">
+    <li><b>${clazz}</b> the selected class
+      <ul style="list-style-type:none;">
+        <li><b>${name}</b> the class name</li>
+        <li><b>${packageName}</b> the class name</li>
+        <li><b>${fields}</b> the class fields
+          <ul style="list-style-type:none;">
+            <li><b>${name}</b> the field name</li>
+            <li><b>${type}</b> the field type</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><b>${fn}</b> String tools
+      <ul style="list-style-type:none;">
+        <li><b>${pluralize}</b> </li>
+        <li><b>${singularize}</b> </li>
+        <li><b>${decapitalize}</b> </li>
+        <li><b>${capitalize}</b> </li>
+        <li><b>${dcp}</b> decapitalize and pluralize</li>
+      </ul>
+    </li>
+    <li><b>${BASE_PACKAGE}</b> user selected base package</li>
+    <li><b>${USER}</b> current user system login name</li>
+    <li><b>${YEAR}</b> current year</li>
+    <li><b>${MONTH}</b> current month</li>
+    <li><b>${DAY}</b> current day</li>
+    <li><b>${DATE}</b> current system date</li>
+    <li><b>${TIME}</b> current system time</li>
+    <li><b>${DATE_TIME}</b> current system dateTime</li>
+  </ul>
+</div>
+</body>
+</html>

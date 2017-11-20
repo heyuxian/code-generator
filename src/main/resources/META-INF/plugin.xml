@@ -1,0 +1,29 @@
+<idea-plugin>
+  <id>me.javaroad.plugins.code-generator</id>
+  <name>CodeGenerator</name>
+  <version>1.0</version>
+  <vendor email="heyuxian.me@gmail.com" url="https://github.com/heyuxian/code-generator">Personal</vendor>
+
+  <description><![CDATA[https://github.com/heyuxian/code-generator]]></description>
+
+  <change-notes><![CDATA[]]>
+  </change-notes>
+
+  <idea-version since-build="143" until-build="173.*"/>
+
+  <depends>com.intellij.modules.java</depends>
+
+  <extensions defaultExtensionNs="com.intellij">
+    <applicationService serviceInterface="me.javaroad.plugins.settings.TemplateSettings"
+      serviceImplementation="me.javaroad.plugins.settings.TemplateSettings"/>
+    <projectConfigurable instance="me.javaroad.plugins.config.CodeGeneratorConfigurable"/>
+  </extensions>
+
+  <actions>
+    <action class="me.javaroad.plugins.action.CodeGeneratorAction" id="me.javaroad.plugins.action.CodeGeneratorAction"
+      text="Generate Code">
+      <add-to-group group-id="GenerateGroup" anchor="last"/>
+    </action>
+  </actions>
+
+</idea-plugin>
