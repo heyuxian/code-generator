@@ -2,7 +2,7 @@
 
 # Code Generator
 
-English | [中文](./README.md)
+English | [中文](./README_CN.md)
 
 A code generation plug-in for Intellij-IDEA, you can customize the  templates using [Apache Velocity](http://velocity.apache.org/engine/1.7/user-guide.html).
 
