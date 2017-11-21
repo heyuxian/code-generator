@@ -16,7 +16,7 @@
   <extensions defaultExtensionNs="com.intellij">
     <applicationService serviceInterface="me.javaroad.plugins.settings.TemplateSettings"
       serviceImplementation="me.javaroad.plugins.settings.TemplateSettings"/>
-    <projectConfigurable instance="me.javaroad.plugins.config.CodeGeneratorConfigurable"/>
+    <projectConfigurable dynamic="true" instance="me.javaroad.plugins.config.CodeGeneratorConfigurable"/>
   </extensions>
 
   <actions>

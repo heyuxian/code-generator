@@ -12,7 +12,7 @@ public class VelocityUtilsTest {
     @Test
     public void evaluate() throws Exception {
         Map<String, Object> map = new HashMap<>();
-        map.put("clazz", 1234);
+        map.put("clazz", "clazz");
         VelocityUtils.evaluate("${clazz}", map);
     }
 

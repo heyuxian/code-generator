@@ -11,28 +11,27 @@ public class MyStringUtilsTest {
 
     @Test
     public void pluralize() throws Exception {
-        Assert.assertEquals("Tests", MyStringUtils.pluralize("Test"));
+        Assert.assertEquals("Categories", MyStringUtils.pluralize("Category"));
     }
 
     @Test
     public void singularize() throws Exception {
-        Assert.assertEquals("Test", MyStringUtils.singularize("Tests"));
+        Assert.assertEquals("Category", MyStringUtils.singularize("Categories"));
     }
 
     @Test
     public void decapitalize() throws Exception {
-        Assert.assertEquals("test", MyStringUtils.decapitalize("Test"));
+        Assert.assertEquals("category", MyStringUtils.decapitalize("Category"));
     }
 
     @Test
     public void capitalize() throws Exception {
-        System.out.println(MyStringUtils.capitalize("Test"));
-        Assert.assertEquals("Test", MyStringUtils.capitalize("test"));
+        Assert.assertEquals("Category", MyStringUtils.capitalize("category"));
     }
 
     @Test
     public void dcp() throws Exception {
-        Assert.assertEquals("tests", MyStringUtils.dcp("Test"));
+        Assert.assertEquals("categories", MyStringUtils.dcp("Category"));
     }
 
 }

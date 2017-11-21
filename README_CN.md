@@ -2,40 +2,36 @@
 
 # Code Generator
 
-English | [中文](./README.md)
+[English](./README.md) | 中文
 
-A code generation plug-in for Intellij-IDEA, you can customize the  templates using [Apache Velocity](http://velocity.apache.org/engine/1.7/user-guide.html).
+`CodeGenerator`，是一款用于`Intellj IDEA`的代码生成器插件，可以根据数据库实体对象(Entity/Domain)，通过自定义或是使用默认的模板，生成对应的`Java`代码。
 
-## Features
+## 下载插件
 
-- Customizable velocity templates.
-- Support template grouping.
-- Support Rest API generation.
-- Support Service/Repository/Controller generation.
-
-## Installation
-
-- Download  [CodeGenerator](https://github.com/heyuxian/code-generator/releases)
+- [CodeGenerator](https://github.com/heyuxian/code-generator/releases)
 
 ![install](https://user-images.githubusercontent.com/30259465/32404191-17f1a142-c186-11e7-8da0-193d166224d8.jpg)
 
-## Configuration
+## 配置模板
 
-This plug-in supports multiple templates and multiple templates groups,  so you can add templates or template groups.
+此插件支持多模板（多模板组）， 你可以使用预定义的变量自行编辑模板；编辑完成之后可以通过右下角 `Validate` 按钮验证模板是否正确。
 
 ![config](https://user-images.githubusercontent.com/30259465/33076565-033c80e8-cf08-11e7-8918-7dfe39018982.jpg)
 
-**Note**
+**注**
 
-> The default templates is used for [MCloud](https://github.com/heyuxian/mcloud) , you can either delete it or edit it.
+> 插件内置的模板主要用于 [MCloud](https://github.com/heyuxian/mcloud) 项目，你可以编辑或是直接删除它。
 
-## Usage
+## 使用插件
 
 ![generator](https://user-images.githubusercontent.com/30259465/33077119-d7486400-cf09-11e7-93f8-937c7a5ca53e.gif)
 
-## Reporting Issues
 
-If you have any questions, please [create a new issue](https://github.com/heyuxian/code-generator/issues/new).
+
+
+## 问题及建议
+
+如果你发现了任何bug，请 [创建新issue](https://github.com/heyuxian/code-generator/issues/new) 。最后，如果你觉得本项目对你有所帮助，请点赞支持，同时也欢迎提 PR 参与到本项目中。
 
 ## License
 

@@ -1,7 +1,6 @@
 package me.javaroad.plugins.ui;
 
-import java.awt.Desktop;
-import java.io.IOException;
+import com.intellij.ide.BrowserUtil;
 import java.net.URISyntaxException;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
@@ -15,53 +14,50 @@ public class HelpPanel {
 
     @Getter
     private JPanel mainPanel;
-    private JTextPane textPane1;
+    private JTextPane infoPanel;
+    private JTextPane supportPanel;
 
     public HelpPanel() {
-        textPane1.addHyperlinkListener(e -> {
+        infoPanel.setText(""
+            + "**********************************************************************\n"
+            + "** You can use the following predefined variables in templates\n"
+            + "**********************************************************************\n"
+            + "**\n"
+            + "**  - ${clazz} the selected class\n"
+            + "**      - ${name} the class name\n"
+            + "**      - ${packageName} the package name\n"
+            + "**      - ${fields} the class fields\n"
+            + "**          - ${name} the field name\n"
+            + "**          - ${type} the field type\n"
+            + "**  - ${fn} String tools\n"
+            + "**      - ${fn.pluralize()}    ----- ${fn.pluralize(\"Category\")} = Categories\n"
+            + "**      - ${fn.singularize()}  ----- ${fn.singularize(\"Categories\")} = Category\n"
+            + "**      - ${fn.decapitalize()} ----- ${fn.decapitalize(\"Category\")} = category\n"
+            + "**      - ${fn.capitalize()}   ----- ${fn.capitalize(\"category\")} = Category\n"
+            + "**      - ${fn.dcp()} decapitalize and pluralize ------- ${fn.dcp(\"Category\")} = categories\n"
+            + "**  - ${BASE_PACKAGE} user selected base package\n"
+            + "**  - ${USER} current user login name\n"
+            + "**  - ${YEAR} current year\n"
+            + "**  - ${MONTH} current month\n"
+            + "**  - ${DAY} current day\n"
+            + "**  - ${DATE} current system date\n"
+            + "**  - ${TIME} current system time\n"
+            + "**  - ${DATE_TIME} current system dateTime\n"
+            + "**\n"
+            + "**********************************************************************");
+
+        supportPanel.addHyperlinkListener(e -> {
             if(e.getEventType() == EventType.ACTIVATED) {
-                Desktop desktop = Desktop.getDesktop();
                 try {
-                    desktop.browse(e.getURL().toURI());
-                } catch (IOException | URISyntaxException e1) {
+                    BrowserUtil.browse(e.getURL().toURI());
+                } catch (URISyntaxException e1) {
                     e1.printStackTrace();
                 }
             }
         });
-        textPane1.setText("<div style=\"font-family: Consolas;\">\n"
-            + "  You can use the following predefined variables in templates\n"
-            + "  <ul style=\"list-style-type:none;\">\n"
-            + "    <li><b>${clazz}</b> the selected class\n"
-            + "      <ul style=\"list-style-type:none;\">\n"
-            + "        <li><b>${name}</b> the class name</li>\n"
-            + "        <li><b>${packageName}</b> the class name</li>\n"
-            + "        <li><b>${fields}</b> the class fields\n"
-            + "          <ul style=\"list-style-type:none;\">\n"
-            + "            <li><b>${name}</b> the field name</li>\n"
-            + "            <li><b>${type}</b> the field type</li>\n"
-            + "          </ul>\n"
-            + "        </li>\n"
-            + "      </ul>\n"
-            + "    </li>\n"
-            + "    <li><b>${fn}</b> String tools\n"
-            + "      <ul style=\"list-style-type:none;\">\n"
-            + "        <li><b>${pluralize}</b> </li>\n"
-            + "        <li><b>${singularize}</b> </li>\n"
-            + "        <li><b>${decapitalize}</b> </li>\n"
-            + "        <li><b>${capitalize}</b> </li>\n"
-            + "        <li><b>${dcp}</b> decapitalize and pluralize</li>\n"
-            + "      </ul>\n"
-            + "    </li>\n"
-            + "    <li><b>${BASE_PACKAGE}</b> user selected base package</li>\n"
-            + "    <li><b>${USER}</b> current user system login name</li>\n"
-            + "    <li><b>${YEAR}</b> current year</li>\n"
-            + "    <li><b>${MONTH}</b> current month</li>\n"
-            + "    <li><b>${DAY}</b> current day</li>\n"
-            + "    <li><b>${DATE}</b> current system date</li>\n"
-            + "    <li><b>${TIME}</b> current system time</li>\n"
-            + "    <li><b>${DATE_TIME}</b> current system dateTime</li>\n"
-            + "  </ul>\n"
-            + "</div>"
-            + "<a href=\"https://github.com/heyuxian/code-generator\">github</a>");
+        supportPanel.setText(""
+            + "1. <a href=\"http://velocity.apache.org/engine/1.7/user-guide.html\">Apache Velocity</a> is used<br/>"
+            + "2. Source Code: <a href=\"https://github.com/heyuxian/code-generator\">github</a><br/>"
+            + "3. Issues: <a href=\"https://github.com/heyuxian/code-generator/issues/new\">new issue</a>");
     }
 }

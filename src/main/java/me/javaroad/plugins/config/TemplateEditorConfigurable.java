@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Objects;
 import javax.swing.JComponent;
-import javax.swing.JPanel;
+import javax.swing.JLabel;
 import javax.swing.tree.TreePath;
 import me.javaroad.plugins.model.Template;
 import me.javaroad.plugins.model.TemplateGroup;
@@ -243,7 +243,7 @@ public class TemplateEditorConfigurable extends MasterDetailsComponent implement
                 }
 
                 public JComponent createOptionsPanel() {
-                    return new JPanel();
+                    return new JLabel("Select a template to view or edit its details here", 0);
                 }
 
                 public boolean isModified() {

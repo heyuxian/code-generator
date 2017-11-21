@@ -9,21 +9,51 @@
       <font/>
     </border>
     <children>
-      <component id="1b182" class="javax.swing.JTextPane" binding="textPane1" default-binding="true">
+      <scrollpane id="c466f">
         <constraints>
-          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="50"/>
-          </grid>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
           <gridbag weightx="1.0" weighty="1.0"/>
         </constraints>
-        <properties>
-          <contentType value="text/html"/>
-          <editable value="false"/>
-          <enabled value="true"/>
-          <font name="Consolas" size="12"/>
-          <margin top="30" left="3" bottom="3" right="3"/>
-        </properties>
-      </component>
+        <properties/>
+        <border type="etched" title=" Predefined Variables "/>
+        <children>
+          <component id="3856e" class="javax.swing.JTextPane" binding="infoPanel">
+            <constraints/>
+            <properties>
+              <editable value="false"/>
+              <font name="Consolas" size="12"/>
+            </properties>
+          </component>
+        </children>
+      </scrollpane>
+      <grid id="86f91" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="10" left="0" bottom="10" right="0"/>
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="1.0" weighty="0.0"/>
+        </constraints>
+        <properties/>
+        <border type="etched" title=" Support "/>
+        <children>
+          <component id="25f2b" class="javax.swing.JTextPane" binding="supportPanel">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="60"/>
+              </grid>
+            </constraints>
+            <properties>
+              <contentType value="text/html"/>
+              <editable value="false"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <vspacer id="4ecf4">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+      </vspacer>
     </children>
   </grid>
 </form>
