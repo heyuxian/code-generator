@@ -3,7 +3,7 @@ package ${BASE_PACKAGE}.mapper;
 import java.util.List;
 import ${BASE_PACKAGE}.dto.request.${clazz.name}Request;
 import ${BASE_PACKAGE}.dto.response.${clazz.name}Response;
-import ${BASE_PACKAGE}.clazz.${clazz.name};
+import ${BASE_PACKAGE}.entity.${clazz.name};
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;

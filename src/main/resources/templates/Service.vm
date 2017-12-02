@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Objects;
 import ${BASE_PACKAGE}.dto.request.${clazz.name}Request;
 import ${BASE_PACKAGE}.dto.response.${clazz.name}Response;
-import ${BASE_PACKAGE}.clazz.${clazz.name};
+import ${BASE_PACKAGE}.entity.${clazz.name};
 import ${BASE_PACKAGE}.mapper.${clazz.name}Mapper;
 import ${BASE_PACKAGE}.repository.${clazz.name}Repository;
 import me.javaroad.common.exception.DataNotFoundException;

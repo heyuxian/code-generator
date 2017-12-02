@@ -2,12 +2,11 @@
   <id>me.javaroad.plugins.code-generator</id>
   <name>CodeGenerator</name>
   <version>1.0</version>
-  <vendor email="heyuxian.me@gmail.com" url="https://github.com/heyuxian/code-generator">Personal</vendor>
+  <vendor email="heyuxian.me@gmail.com" url="https://github.com/heyuxian/code-generator">heyuxian</vendor>
 
-  <description><![CDATA[https://github.com/heyuxian/code-generator]]></description>
+  <description><![CDATA[A code generator]]></description>
 
-  <change-notes><![CDATA[]]>
-  </change-notes>
+  <change-notes><![CDATA[]]></change-notes>
 
   <idea-version since-build="143" until-build="173.*"/>
 

@@ -1,6 +1,6 @@
 package ${BASE_PACKAGE}.repository;
 
-import ${BASE_PACKAGE}.clazz.${clazz.name};
+import ${BASE_PACKAGE}.entity.${clazz.name};
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
