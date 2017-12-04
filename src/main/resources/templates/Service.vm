@@ -26,8 +26,8 @@ public class ${clazz.name}Service {
     }
 
     public List<${clazz.name}Response> getAll() {
-        List<${clazz.name}> categories = ${fn.decapitalize(${clazz.name})}Repository.findAll();
-        return ${fn.decapitalize(${clazz.name})}Mapper.mapEntityToResponse(categories);
+        List<${clazz.name}> ${fn.dcp(${clazz.name})} = ${fn.decapitalize(${clazz.name})}Repository.findAll();
+        return ${fn.decapitalize(${clazz.name})}Mapper.mapEntityToResponse(${fn.dcp(${clazz.name})});
     }
 
     public ${clazz.name}Response getResponse(Long ${fn.decapitalize(${clazz.name})}Id) {
