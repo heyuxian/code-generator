@@ -1,12 +1,37 @@
 <idea-plugin>
   <id>me.javaroad.plugins.code-generator</id>
-  <name>CodeGenerator</name>
-  <version>1.0</version>
+  <name>Code Generator</name>
+  <version>1.1.0.RELEASE</version>
   <vendor email="heyuxian.me@gmail.com" url="https://github.com/heyuxian/code-generator">heyuxian</vendor>
 
-  <description><![CDATA[A code generator]]></description>
+  <description><![CDATA[
+  <h3>Features</h3>
+  <hr/>
+  <ul>
+    <li>Customizable velocity template.</li>
+    <li>Template import/export support.</li>
+    <li>Support template grouping.</li>
+    <li>Support Rest API generation.</li>
+    <li>Support Service/Repository/Controller generation.</li>
+  </ul>
 
-  <change-notes><![CDATA[]]></change-notes>
+  ]]></description>
+
+  <change-notes><![CDATA[
+    <ul>
+      <li><b>Version 1.1.0.RELEASE</b>
+        <ul>
+          <li>fix some bugs</li>
+          <li>add import/export template support</li>
+        </ul>
+      </li>
+      <li><b>Version 1.0.0.RELEASE</b>
+        <ul>
+          <li>first release</li>
+        </ul>
+      </li>
+    </ul>
+  ]]></change-notes>
 
   <idea-version since-build="143" until-build="173.*"/>
 

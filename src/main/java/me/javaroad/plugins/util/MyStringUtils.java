@@ -5,14 +5,17 @@ import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * @author heyx
+ * This code from the internet
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class MyStringUtils {
 
     private static final Pattern UNDERSCORE_PATTERN_1 = Pattern.compile("([A-Z]+)([A-Z][a-z])");
@@ -21,9 +24,6 @@ public class MyStringUtils {
     private static List<RuleAndReplacement> plurals = new ArrayList<>();
     private static List<RuleAndReplacement> singulars = new ArrayList<>();
     private static List<String> unCountAbles = new ArrayList<>();
-
-    private MyStringUtils() {
-    }
 
     public static String pluralize(String word) {
         if (unCountAbles.contains(word.toLowerCase())) {

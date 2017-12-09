@@ -6,21 +6,22 @@
 
 `CodeGenerator`，是一款用于`Intellj IDEA`的代码生成器插件，可以根据数据库实体对象(Entity/Domain)，通过自定义或是使用默认的模板，生成对应的`Java`代码。
 
+## 插件特性
+
+- 支持自定义模板
+- 支持模板导入导出
+- 支持生成 Restful 风格的API
+
 ## 下载插件
 
-- [CodeGenerator](https://github.com/heyuxian/code-generator/releases)
-
-![install](https://user-images.githubusercontent.com/30259465/32404191-17f1a142-c186-11e7-8da0-193d166224d8.jpg)
+- 下载 Release 版本到本地安装 [Code Generator](https://github.com/heyuxian/code-generator/releases)
+- 在 IntelliJ plugin repository 中搜索 `Code Generator` 下载安装.
 
 ## 配置模板
 
 此插件支持多模板（多模板组）， 你可以使用预定义的变量自行编辑模板；编辑完成之后可以通过右下角 `Validate` 按钮验证模板是否正确。
 
 ![config](https://user-images.githubusercontent.com/30259465/33076565-033c80e8-cf08-11e7-8918-7dfe39018982.jpg)
-
-**注**
-
-> 插件内置的模板主要用于 [MCloud](https://github.com/heyuxian/mcloud) 项目，你可以编辑或是直接删除它。
 
 ## 使用插件
 

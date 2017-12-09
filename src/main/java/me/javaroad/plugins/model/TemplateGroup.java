@@ -4,6 +4,7 @@ import com.google.common.collect.Maps;
 import java.io.Serializable;
 import java.util.Map;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -11,9 +12,15 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@NoArgsConstructor
 public class TemplateGroup implements Serializable {
+
     private String name;
     private Map<String, Template> templateMap = Maps.newHashMap();
+
+    public TemplateGroup(String name) {
+        this.name = name;
+    }
 
     public void addTemplate(Template template) {
         templateMap.put(template.getName(), template);

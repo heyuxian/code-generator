@@ -9,6 +9,7 @@ import com.intellij.util.xmlb.XmlSerializerUtil;
 import java.io.IOException;
 import java.util.Map;
 import lombok.Getter;
+import lombok.Setter;
 import me.javaroad.plugins.model.Template;
 import me.javaroad.plugins.model.TemplateGroup;
 import org.jetbrains.annotations.NotNull;
@@ -22,12 +23,16 @@ public class TemplateSettings implements PersistentStateComponent<TemplateSettin
 
     @Getter
     private final Map<String, TemplateGroup> templateGroupMap = Maps.newHashMap();
+    @Getter
+    @Setter
+    private Boolean init = Boolean.FALSE;
 
     @Nullable
     @Override
     public TemplateSettings getState() {
-        if (templateGroupMap.size() == 0) {
+        if (templateGroupMap.size() == 0 && !init) {
             loadDefaultState();
+            init = true;
         }
         return this;
     }

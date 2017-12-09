@@ -4,14 +4,24 @@ import com.google.common.collect.Maps;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonShortcuts;
+import com.intellij.openapi.actionSystem.DataContext;
+import com.intellij.openapi.fileChooser.FileChooser;
+import com.intellij.openapi.fileChooser.FileChooserDescriptor;
 import com.intellij.openapi.options.ConfigurationException;
 import com.intellij.openapi.options.SearchableConfigurable;
 import com.intellij.openapi.project.DumbAwareAction;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.ui.InputValidator;
 import com.intellij.openapi.ui.MasterDetailsComponent;
 import com.intellij.openapi.ui.MasterDetailsStateService;
 import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.ui.NamedConfigurable;
+import com.intellij.openapi.ui.popup.JBPopupFactory;
+import com.intellij.openapi.ui.popup.ListPopup;
+import com.intellij.openapi.ui.popup.ListPopupStep;
+import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.tools.SimpleActionGroup;
+import com.intellij.ui.AnActionButton.AnActionEventWrapper;
 import com.intellij.util.IconUtil;
 import java.util.ArrayList;
 import java.util.Map;
@@ -21,11 +31,10 @@ import javax.swing.JLabel;
 import javax.swing.tree.TreePath;
 import me.javaroad.plugins.model.Template;
 import me.javaroad.plugins.model.TemplateGroup;
-import me.javaroad.plugins.model.TreeNode;
-import me.javaroad.plugins.model.TreeNode.Type;
 import me.javaroad.plugins.settings.TemplateSettings;
 import me.javaroad.plugins.ui.TemplateEditForm;
-import me.javaroad.plugins.ui.TreeNodeDialog;
+import me.javaroad.plugins.util.ZipFileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
@@ -47,9 +56,9 @@ public class TemplateEditorConfigurable extends MasterDetailsComponent implement
     }
 
     private void initTemplate() {
-        myRoot.removeAllChildren();
         templateGroupMap.clear();
-        myRoot.removeAllChildren();
+        clearChildren();
+        initTree();
         templateSettings.getTemplateGroupMap().forEach((groupName, group) -> {
             MyGroupNode parent = addGroupNode(groupName);
             group.getTemplateMap().forEach((templateName, template) -> {
@@ -83,11 +92,87 @@ public class TemplateEditorConfigurable extends MasterDetailsComponent implement
 
             @Override
             public void actionPerformed(AnActionEvent event) {
-                TreeNodeDialog dialog = new TreeNodeDialog(project);
-                dialog.show();
-                if (dialog.isOK()) {
-                    TreeNode treeNode = dialog.getTreeNode();
-                    createNewNode(treeNode);
+                SimpleActionGroup myActionGroup = new SimpleActionGroup();
+                myActionGroup.add(new DumbAwareAction("Add Template") {
+
+                    @Override
+                    public void actionPerformed(AnActionEvent anActionEvent) {
+                        String templateName = Messages
+                            .showInputDialog("Template Name", "Add Template", null, "", new InputValidator() {
+                                @Override
+                                public boolean checkInput(String input) {
+                                    return StringUtils.isNotBlank(input) && checkTemplateName(input);
+                                }
+
+                                @Override
+                                public boolean canClose(String input) {
+                                    return checkInput(input);
+                                }
+                            });
+                        if (StringUtils.isNotBlank(templateName)) {
+                            createNewTemplate(templateName);
+                        }
+                    }
+                });
+                myActionGroup.add(new DumbAwareAction("Add Group") {
+
+                    @Override
+                    public void actionPerformed(AnActionEvent anActionEvent) {
+                        String groupName = Messages
+                            .showInputDialog("Group Name", "Add Group", null, "", new InputValidator() {
+                                @Override
+                                public boolean checkInput(String input) {
+                                    return StringUtils.isNotBlank(input) && !templateGroupMap.containsKey(input);
+                                }
+
+                                @Override
+                                public boolean canClose(String input) {
+                                    return checkInput(input);
+                                }
+                            });
+                        if (StringUtils.isNotBlank(groupName)) {
+                            createNewGroup(groupName);
+                        }
+                    }
+                });
+                myActionGroup.add(new DumbAwareAction("Import") {
+
+                    @Override
+                    public void actionPerformed(AnActionEvent anActionEvent) {
+                        FileChooserDescriptor descriptor = new FileChooserDescriptor(false, false, true, true, false,
+                            false);
+                        VirtualFile virtualFile = FileChooser.chooseFile(descriptor, project, null);
+                        if (Objects.nonNull(virtualFile)) {
+                            Map<String, TemplateGroup> importTemplate = ZipFileUtils
+                                .readTemplateFromFile(virtualFile.getPath());
+                            if (Objects.nonNull(importTemplate)) {
+                                importTemplate(importTemplate);
+                            }
+                        }
+                    }
+                });
+                myActionGroup.add(new DumbAwareAction("Export") {
+
+                    @Override
+                    public void actionPerformed(AnActionEvent anActionEvent) {
+                        FileChooserDescriptor descriptor = new FileChooserDescriptor(false, true, false, false, false,
+                            false);
+                        VirtualFile virtualFile = FileChooser.chooseFile(descriptor, project, null);
+                        if (Objects.nonNull(virtualFile)) {
+                            exportTemplate(virtualFile);
+                        }
+                    }
+                });
+                JBPopupFactory popupFactory = JBPopupFactory.getInstance();
+                DataContext dataContext = event.getDataContext();
+                ListPopupStep step = popupFactory.createActionsStep(myActionGroup, dataContext, false, false,
+                    myActionGroup.getTemplatePresentation().getText(), getTree(), true, 0, true);
+                ListPopup listPopup = popupFactory.createListPopup(step);
+                listPopup.setHandleAutoSelectionBeforeShow(true);
+                if (event instanceof AnActionEventWrapper) {
+                    ((AnActionEventWrapper) event).showPopup(listPopup);
+                } else {
+                    listPopup.showInBestPositionFor(dataContext);
                 }
             }
         });
@@ -104,6 +189,69 @@ public class TemplateEditorConfigurable extends MasterDetailsComponent implement
         return result;
     }
 
+    private void exportTemplate(VirtualFile virtualFile) {
+        ZipFileUtils
+            .writeTemplateToFile(templateSettings.getTemplateGroupMap(), virtualFile.getPath());
+        Messages.showInfoMessage("Export Successful", "Success");
+    }
+
+    private void importTemplate(Map<String, TemplateGroup> importTemplate) {
+        int result = Messages.showYesNoDialog("This will overwrite the existing template, Do you confirm import it?",
+            "Confirm Import", null);
+        if (result == Messages.YES) {
+            templateSettings.getTemplateGroupMap().clear();
+            templateSettings.getTemplateGroupMap().putAll(importTemplate);
+            initTemplate();
+        }
+    }
+
+    private void createNewTemplate(String templateName) {
+        MyGroupNode parent = getParentNode();
+        if (Objects.isNull(parent)) {
+            Messages.showWarningDialog("Please select a group", "Warning");
+            return;
+        }
+        TemplateGroup group = templateGroupMap.get(parent.getDisplayName());
+
+        Template template = new Template();
+        template.setName(templateName);
+        template.setContent("");
+        addTemplateNode(group, template, parent);
+        group.addTemplate(template);
+    }
+
+    private boolean checkTemplateName(String templateName) {
+        MyGroupNode parent = getParentNode();
+        if (Objects.nonNull(parent)) {
+            TemplateGroup group = templateGroupMap.get(parent.getDisplayName());
+            return !(group.exists(templateName));
+        }
+        return false;
+    }
+
+    private MyGroupNode getParentNode() {
+        final TreePath selectionPath = myTree.getSelectionPath();
+        if (Objects.nonNull(selectionPath)) {
+            MyGroupNode parent;
+            MyNode selectedNode = (MyNode) selectionPath.getLastPathComponent();
+
+            if (selectedNode instanceof MyGroupNode) {
+                parent = (MyGroupNode) selectedNode;
+            } else {
+                parent = (MyGroupNode) selectedNode.getParent();
+            }
+            return parent;
+        }
+        return null;
+    }
+
+    private void createNewGroup(String groupName) {
+        addGroupNode(groupName);
+        TemplateGroup templateGroup = new TemplateGroup();
+        templateGroup.setName(groupName);
+        templateGroupMap.put(templateGroup.getName(), templateGroup);
+    }
+
     private void removeNode() {
         final TreePath selectionPath = myTree.getSelectionPath();
         if (Objects.nonNull(selectionPath)) {
@@ -117,42 +265,6 @@ public class TemplateEditorConfigurable extends MasterDetailsComponent implement
         }
     }
 
-    private void createNewNode(TreeNode treeNode) {
-        if (Type.GROUP.equals(treeNode.getType())) {
-            if (templateGroupMap.containsKey(treeNode.getName())) {
-                Messages.showWarningDialog("Group " + treeNode.getName() + " already exists", "Warning");
-                return;
-            }
-            addGroupNode(treeNode.getName());
-            TemplateGroup templateGroup = new TemplateGroup();
-            templateGroup.setName(treeNode.getName());
-            templateGroupMap.put(templateGroup.getName(), templateGroup);
-        } else {
-            final TreePath selectionPath = myTree.getSelectionPath();
-            if (Objects.nonNull(selectionPath)) {
-                MyGroupNode parent;
-                MyNode selectedNode = (MyNode) selectionPath.getLastPathComponent();
-
-                if (selectedNode instanceof MyGroupNode) {
-                    parent = (MyGroupNode) selectedNode;
-                } else {
-                    parent = (MyGroupNode) selectedNode.getParent();
-                }
-                TemplateGroup group = templateGroupMap.get(parent.getDisplayName());
-                if (group.exists(treeNode.getName())) {
-                    Messages.showWarningDialog("Template " + treeNode.getName() + " already exists", "Warning");
-                    return;
-                }
-                Template template = new Template();
-                template.setName(treeNode.getName());
-                template.setContent("");
-                addTemplateNode(group, template, parent);
-                group.addTemplate(template);
-            } else {
-                Messages.showWarningDialog("Please select a group", "Warning");
-            }
-        }
-    }
 
     private void addTemplateNode(TemplateGroup group, @NotNull Template template,
         @NotNull MyGroupNode parent) {
