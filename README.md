@@ -2,38 +2,6 @@
 
 # Code Generator
 
-English | [中文](./README_CN.md)
-
-A code generation plug-in for Intellij-IDEA, you can customize the  templates using [Apache Velocity](http://velocity.apache.org/engine/1.7/user-guide.html).
-
-home page: [code-generator](https://plugins.jetbrains.com/plugin/10201-code-generator)
-
-## Features
-
-- Customizable velocity template.
-- Support template import and export.
-- Support template grouping.
-- Support Rest API generation.
-- Support Service/Repository/Controller generation.
-
-## Installation
-
-- Download  [CodeGenerator](https://github.com/heyuxian/code-generator/releases)
-- Download from Intellij plugin repository (Search `Code Generator`)
-
-## Configuration
-
-This plug-in supports multiple templates and multiple templates groups,   you can add your own template or template group.
-
-![config](https://user-images.githubusercontent.com/30259465/33076565-033c80e8-cf08-11e7-8918-7dfe39018982.jpg)
-
-## Usage
-
-![generator](https://user-images.githubusercontent.com/30259465/33077119-d7486400-cf09-11e7-93f8-937c7a5ca53e.gif)
-
-## Reporting Issues
-
-If you have any questions, please [create a new issue](https://github.com/heyuxian/code-generator/issues/new).
 
 ## License
 
