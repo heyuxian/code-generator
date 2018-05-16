@@ -30,10 +30,7 @@ intellij {
     version 'IC-2016.3'
     pluginName 'Code Generator'
     intellij.updateSinceUntilBuild false
-    publish {
-        apply from: "gradle.properties"
-    }
 }
 
 group 'me.javaroad'
-version '1.1.0.RELEASE'
+version '1.2.0.RELEASE'
