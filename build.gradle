@@ -33,4 +33,4 @@ intellij {
 }
 
 group 'me.javaroad'
-version '1.2.0.RELEASE'
+version '1.2.1.RELEASE'
