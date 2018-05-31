@@ -1,12 +1,12 @@
 package me.javaroad.plugins.settings;
 
-import com.google.common.collect.Maps;
 import com.intellij.openapi.components.PersistentStateComponent;
 import com.intellij.openapi.components.State;
 import com.intellij.openapi.components.Storage;
 import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.util.xmlb.XmlSerializerUtil;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,11 +18,12 @@ import org.jetbrains.annotations.Nullable;
 /**
  * @author heyx
  */
-@State(name = "CodeGeneratorSettings", storages = {@Storage("$APP_CONFIG$/code-generator-settings.xml")})
+@State(name = "CodeGeneratorSettings", storages = {@Storage(value = "$APP_CONFIG$/code-generator-settings.xml")})
 public class TemplateSettings implements PersistentStateComponent<TemplateSettings> {
 
     @Getter
-    private final Map<String, TemplateGroup> templateGroupMap = Maps.newHashMap();
+    @Setter
+    private Map<String, TemplateGroup> templateGroupMap = new HashMap<>();
     @Getter
     @Setter
     private Boolean init = Boolean.FALSE;
