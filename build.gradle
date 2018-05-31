@@ -27,7 +27,7 @@ dependencies {
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.4'
 }
 intellij {
-    version 'IC-2016.3'
+    version 'IU-2018.1'
     pluginName 'Code Generator'
     intellij.updateSinceUntilBuild false
 }
