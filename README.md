@@ -2,11 +2,15 @@
 
 # Code Generator
 
+## Plugin Usage
+
+![generator](https://user-images.githubusercontent.com/30259465/33077119-d7486400-cf09-11e7-93f8-937c7a5ca53e.gif)
+
 
 ## License
 
 ```
-Copyright 2017 http://www.javaroad.me
+Copyright 2018 http://www.javaroad.me
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

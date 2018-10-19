@@ -8,29 +8,29 @@ buildscript {
 }
 
 plugins {
-    id "org.jetbrains.intellij" version "0.1.10"
+    id "org.jetbrains.intellij" version "0.3.12"
 }
 
 apply plugin: 'idea'
 apply plugin: 'org.jetbrains.intellij'
 apply plugin: 'java'
-
 repositories {
     maven{
         url 'http://maven.aliyun.com/nexus/content/groups/public/'
     }
-    mavenCentral()
+    //mavenCentral()
 }
 dependencies {
+    compile 'com.google.guava:guava:24.1-jre'
     compile 'org.projectlombok:lombok:1.16.18'
-    compile group: 'commons-io', name: 'commons-io', version: '2.5'
-    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.4'
+    compile 'org.apache.commons:commons-lang3:3.7'
+    compile 'commons-io:commons-io:2.6'
 }
 intellij {
-    version 'IU-2018.1'
+    version 'IU-2018.2.4'
     pluginName 'Code Generator'
     intellij.updateSinceUntilBuild false
 }
 
 group 'me.javaroad'
-version '1.2.1.RELEASE'
+version '1.2.3.RELEASE'
