@@ -18,6 +18,8 @@
 
   <change-notes><![CDATA[
     <ul>
+      <li><b>Version 1.3.0.RELEASE</b>
+      </li>
       <li><b>Version 1.2.3.RELEASE</b>
         <ul>
           <li>update idea version to 2018.2.4</li>
@@ -54,7 +56,7 @@
 
   <!--https://www.jetbrains.com/intellij-repository/releases-->
   <!--http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html-->
-  <idea-version since-build="143" until-build="182.*"/>
+  <idea-version since-build="143"/>
 
   <depends>com.intellij.modules.java</depends>
 
